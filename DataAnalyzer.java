@@ -52,7 +52,7 @@ public class DataAnalyzer{
         return totalLoudness / songs.size();
     }
 
-    //AI Helped With This Method
+    //AI Helped With This
     // public ArrayList<Song> sortSongsByLoudness(ArrayList<Song> songs) {
     //     songs.sort((s1, s2) -> Double.compare(s2.getLoudness(), s1.getLoudness()));
     //     return songs;
