@@ -61,14 +61,6 @@ public class FileOperator {
     * Returns an ArrayList of words from a file
     */
     public static ArrayList<String> getWords(String text) {
-        // ArrayList<String> wordsList = new ArrayList<>();
-        // for(String line : lines){
-        //     String[] words = line.split(" ");
-        //     for(String word : words){
-        //         wordsList.add(word);
-        //     }
-        // }
-        // return wordsList;
       ArrayList<String> tempList = new ArrayList<>();
       String[] words = text.split(" ");
         for(String word : words){
