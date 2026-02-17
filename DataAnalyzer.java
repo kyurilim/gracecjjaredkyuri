@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 public class DataAnalyzer{
     
     public ArrayList<Song> createSongs(ArrayList<String> songData) {
@@ -58,6 +59,61 @@ public class DataAnalyzer{
     //     return songs;
     // }
 
+    public ArrayList<Song> sortSongs(ArrayList<Song> songs, String attribute) {
+        songs.sort((s1, s2) -> {
+            switch (attribute.toLowerCase()) {
+                case "loudness":
+                    return Double.compare(s2.getLoudness(), s1.getLoudness());
+                case "danceability":
+                    return Double.compare(s2.getDanceability(), s1.getDanceability());
+                case "energy":
+                    return Double.compare(s2.getEnergy(), s1.getEnergy());
+                case "tempo":
+                    return Double.compare(s2.getTempo(), s1.getTempo());
+                default:
+                    return 0;
+            }
+        });
+        return songs;
+    }
+
+    public int binarySearch(ArrayList<Integer> songs, double targetNumber) {
+        int minIndex = 1;
+        int maxIndex = songs.size();
+
+        while (minIndex <= maxIndex){
+            double midIndex = Math.floor(minIndex + (maxIndex - minIndex) / 2);
+            int midNumber = songs.get((int)midIndex);
+            if (midNumber == targetNumber) {
+                return (int)midIndex;
+            } else if (midNumber < targetNumber) {
+                minIndex = (int)midIndex + 1;
+            } else {
+                maxIndex = (int)midIndex - 1;
+            }
+        }
+        return -1;
+    }
+
+    public int linearSearch(ArrayList<Song> songs, String targetTrackName){
+        int index = 0;
+        while(index < songs.size()){
+            if(songs.get(index).getTrack_name().equals(targetTrackName)){
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+
+    public ArrayList<Song> reverseList(ArrayList<Song> songs) {
+        ArrayList<Song> reversed = new ArrayList<>();
+        for(int i = songs.size() - 1; i >= 0; i--) {
+            reversed.add(songs.get(i));
+        }
+        return reversed;
+    }
+
     public static void main(String[] args) {
         ArrayList<String> songlist = FileOperator.getStringList("dataset.csv");
         DataAnalyzer analyzer = new DataAnalyzer();
@@ -71,5 +127,22 @@ public class DataAnalyzer{
         // for(Song song : sortedSongs) {
         //     System.out.println(song.getTrack_name() + " - Loudness: " + song.getLoudness());
         // }
+        ArrayList<Integer> numberList = FileOperator.getIntList("numbers.txt");
+        long startTime = System.nanoTime();
+        int index = analyzer.binarySearch(numberList, 5);
+        long endTime = System.nanoTime(); 
+        System.out.println("Index of '5': " + index);
+        System.out.println("Binary search took " + (endTime - startTime) + " nanoseconds");
+        startTime = System.nanoTime();
+        index = analyzer.linearSearch(songs, "FLY HIGH!!");
+        endTime = System.nanoTime();
+        System.out.println("Index of 'FLY HIGH!!': " + index);
+        System.out.println("Linear search took " + (endTime - startTime) + " nanoseconds");
+        ArrayList<Song> songsSortedByLoudness = analyzer.sortSongs(songs, "loudness");
+        ArrayList<Song> reversedSongs = analyzer.reverseList(songsSortedByLoudness);
+        System.out.println("Top 5 quietest songs:");
+        for(int i = 0; i < 5; i++) {
+            System.out.println(reversedSongs.get(i).getTrack_name() + " - Loudness: " + reversedSongs.get(i).getLoudness());
+        }
     }   
 }
