@@ -22,19 +22,19 @@ public class Server {
         // Then your handlers become clean one-liners:
         server.createContext("/", new HttpHandler() {
             public void handle(HttpExchange res) throws IOException {
-                serveFile(res, "src/index.html", "text/html");
+                serveFile(res, "index.html", "text/html");
             }
         });
 
         server.createContext("/style.css", new HttpHandler() {
             public void handle(HttpExchange res) throws IOException {
-                serveFile(res, "src/style.css", "text/css");
+                serveFile(res, "style.css", "text/css");
             }
         });
 
         server.createContext("/code.js", new HttpHandler() {
             public void handle(HttpExchange res) throws IOException {
-                serveFile(res, "src/code.js", "application/javascript");
+                serveFile(res, "code.js", "application/javascript");
             }
         });
 
