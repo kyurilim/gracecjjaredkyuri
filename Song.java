@@ -4,6 +4,29 @@ public class Song{
     private boolean explicit;
     private double danceability, energy, loudness, speechiness, acousticness, instrumentalness, liveness, valence, tempo;
 
+    public Song() {
+        this.track_id = "";
+        this.artists = "";
+        this.album_name = "";
+        this.track_name = "";
+        this.popularity = 0;
+        this.duration_ms = 0;
+        this.explicit = false;
+        this.danceability = 0.0;
+        this.energy = 0.0;
+        this.key = "";
+        this.loudness = 0.0;
+        this.mode = 0;
+        this.speechiness = 0.0;
+        this.acousticness = 0.0;
+        this.instrumentalness = 0.0;
+        this.liveness = 0.0;
+        this.valence = 0.0;
+        this.tempo = 0.0;
+        this.time_signature = 0;
+        this.genre = "";
+    }
+
     public Song(String track_id, String artists, String album_name, String track_name, int popularity, int duration_ms, boolean explicit, double danceability, double energy, String key, double loudness, int mode, double speechiness, double acousticness, double instrumentalness, double liveness, double valence, double tempo, int time_signature, String genre) {
         this.track_id = track_id;
         this.artists = artists;
@@ -90,5 +113,9 @@ public class Song{
 
     public String toString() {
         return "Track ID: " + track_id + "\nArtists: " + artists + "\nAlbum Name: " + album_name + "\nTrack Name: " + track_name + "\nPopularity: " + popularity + "\nDuration (ms): " + duration_ms + "\nExplicit: " + explicit + "\nDanceability: " + danceability + "\nEnergy: " + energy + "\nKey: " + key + "\nLoudness: " + loudness + "\nMode: " + mode + "\nSpeechiness: " + speechiness + "\nAcousticness: " + acousticness + "\nInstrumentalness: " + instrumentalness + "\nLiveness: " + liveness + "\nValence: " + valence + "\nTempo: " + tempo + "\nTime Signature: " + time_signature + "\nGenre: " + genre;
+    }
+
+    public String toJson(){
+        return "{\"track_id\":\"" + track_id + "\",\"artists\":\"" + artists + "\",\"album_name\":\"" + album_name + "\",\"track_name\":\"" + track_name + "\",\"popularity\":" + popularity + ",\"duration_ms\":" + duration_ms + ",\"explicit\":" + explicit + ",\"danceability\":" + danceability + ",\"energy\":" + energy + ",\"key\":\"" + key + "\",\"loudness\":" + loudness + ",\"mode\":" + mode + ",\"speechiness\":" + speechiness + ",\"acousticness\":" + acousticness + ",\"instrumentalness\":" + instrumentalness + ",\"liveness\":" + liveness + ",\"valence\":" + valence + ",\"tempo\":" + tempo + ",\"time_signature\":" + time_signature + ",\"genre\":\"" + genre +"\"}";
     }
 }

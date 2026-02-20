@@ -114,6 +114,16 @@ public class DataAnalyzer{
         return reversed;
     }
 
+    public String statsToJson(ArrayList<Song> songs){
+            int explicitCount = countExplicitSongs(songs);
+            double averageLoudness = averageLoudness(songs);
+            return String.format(
+                    "{\"explicitCount\":%d,\"averageLoudness\":%.1f}",
+                    explicitCount, averageLoudness
+            );
+    }
+    
+
     public static void main(String[] args) {
         ArrayList<String> songlist = FileOperator.getStringList("dataset.csv");
         DataAnalyzer analyzer = new DataAnalyzer();
