@@ -27,6 +27,11 @@ public class Song{
         this.genre = "";
     }
 
+    public Song(String track_id, double loudness) {
+        this.track_id = track_id;
+        this.loudness = loudness;
+    }
+
     public Song(String track_id, String artists, String album_name, String track_name, int popularity, int duration_ms, boolean explicit, double danceability, double energy, String key, double loudness, int mode, double speechiness, double acousticness, double instrumentalness, double liveness, double valence, double tempo, int time_signature, String genre) {
         this.track_id = track_id;
         this.artists = artists;

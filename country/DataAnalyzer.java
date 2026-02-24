@@ -1,7 +1,7 @@
 // DataAnalyzer.java
 import java.util.ArrayList;
 
-public class DataAnalyzer2 {
+public class DataAnalyzer {
     public ArrayList<Country> getCountryInternet() {
         ArrayList<Country> list = new ArrayList<>();
         list.add(new Country("USA",     92.5));

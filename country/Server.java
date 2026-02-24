@@ -2,7 +2,6 @@ import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.file.*;
-import java.util.ArrayList;
 
 public class Server {
 
@@ -47,8 +46,7 @@ public class Server {
 
             // Manually convert ArrayList to JSON array string (no library!)
             DataAnalyzer analyzer = new DataAnalyzer();
-            ArrayList<Song> songs = analyzer.createSongs(FileOperator.getStringList("dataset.csv"));
-            String json = songs.toString();
+            String json = analyzer.getCountryInternet().toString();
 
             byte[] response = json.getBytes();
             exchange.sendResponseHeaders(200, response.length);
@@ -61,8 +59,8 @@ public class Server {
         server.createContext("/stats", exchange -> {
             exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
             exchange.getResponseHeaders().set("Content-Type", "application/json");
-            ArrayList<Song> songs = new DataAnalyzer().createSongs(FileOperator.getStringList("dataset.csv"));
-            String json = new DataAnalyzer().statsToJson(songs);
+
+            String json = new DataAnalyzer().statsToJson( new DataAnalyzer().getCountryInternet());
             byte[] response = json.getBytes();
             exchange.sendResponseHeaders(200, response.length);
             exchange.getResponseBody().write(response);

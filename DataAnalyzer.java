@@ -113,14 +113,57 @@ public class DataAnalyzer{
         }
         return reversed;
     }
+    
+    public ArrayList<Song> loudnessList(ArrayList<Song> songs) {
+        ArrayList<Song> loudnessSongs = new ArrayList<>();
+        for(Song song : songs) {
+            loudnessSongs.add(new Song(song.getTrack_id(), song.getLoudness()));
+        }
+        return loudnessSongs;
+    }
 
-    public String statsToJson(ArrayList<Song> songs){
-            int explicitCount = countExplicitSongs(songs);
-            double averageLoudness = averageLoudness(songs);
-            return String.format(
-                    "{\"explicitCount\":%d,\"averageLoudness\":%.1f}",
-                    explicitCount, averageLoudness
-            );
+    public double findMinLoudness(ArrayList<Song> songs) {
+        double minLoudness = 0.0;
+        for(Song song : songs) {
+            if(song.getLoudness() < minLoudness) {
+                minLoudness = song.getLoudness();
+            }
+        }
+        return minLoudness;
+    }
+
+    public double findMaxLoudness(ArrayList<Song> songs) {
+        double maxLoudness = 0.0;
+        for(Song song : songs) {
+            if(song.getLoudness() > maxLoudness) {
+                maxLoudness = song.getLoudness();
+            }
+        }
+        return maxLoudness;
+    }
+
+    public double findSumLoudness(ArrayList<Song> songs) {
+        double sumLoudness = 0.0;
+        for(Song song : songs) {
+            sumLoudness += song.getLoudness();
+        }
+        return sumLoudness;
+    }
+
+    public double findAveLoudness(ArrayList<Song> songs) {
+        return findSumLoudness(songs) / songs.size();
+    }
+
+    public String statsToJson(ArrayList<Song> songs) {
+        double minLoudness = findMinLoudness(songs);
+        double maxLoudness = findMaxLoudness(songs);
+        double aveLoudness = findAveLoudness(songs);
+        double sumLoudness = findSumLoudness(songs);
+
+        return String.format(
+                "{\"count\":%d,\"min\":%.1f,\"max\":%.1f,\"avg\":%.1f,\"sum\":%.1f,\"range\":%.1f}",
+                songs.size(), minLoudness, maxLoudness, aveLoudness, sumLoudness, (maxLoudness - minLoudness)
+        );
     }
     
 
