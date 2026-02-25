@@ -53,12 +53,6 @@ public class DataAnalyzer{
         return totalLoudness / songs.size();
     }
 
-    //AI Helped With This
-    // public ArrayList<Song> sortSongsByLoudness(ArrayList<Song> songs) {
-    //     songs.sort((s1, s2) -> Double.compare(s2.getLoudness(), s1.getLoudness()));
-    //     return songs;
-    // }
-
     public ArrayList<Song> sortSongs(ArrayList<Song> songs, String attribute) {
         songs.sort((s1, s2) -> {
             switch (attribute.toLowerCase()) {
@@ -113,59 +107,99 @@ public class DataAnalyzer{
         }
         return reversed;
     }
-    
-    public ArrayList<Song> loudnessList(ArrayList<Song> songs) {
-        ArrayList<Song> loudnessSongs = new ArrayList<>();
+
+    public ArrayList<Song> energyList(ArrayList<Song> songs) {
+        ArrayList<Song> energySongs = new ArrayList<>();
         for(Song song : songs) {
-            loudnessSongs.add(new Song(song.getTrack_id(), song.getLoudness()));
+            energySongs.add(new Song(song.getTrack_id(), song.getEnergy()));
         }
-        return loudnessSongs;
+        return energySongs;
     }
 
-    public double findMinLoudness(ArrayList<Song> songs) {
-        double minLoudness = 0.0;
+    public double findMinEnergy(ArrayList<Song> songs) {
+        double minEnergy = 0.0;
         for(Song song : songs) {
-            if(song.getLoudness() < minLoudness) {
-                minLoudness = song.getLoudness();
+            if(song.getEnergy() < minEnergy) {
+                minEnergy = song.getEnergy();
             }
         }
-        return minLoudness;
+        return minEnergy;
     }
 
-    public double findMaxLoudness(ArrayList<Song> songs) {
-        double maxLoudness = 0.0;
+    public double findMaxEnergy(ArrayList<Song> songs) {
+        double maxEnergy = 0.0;
         for(Song song : songs) {
-            if(song.getLoudness() > maxLoudness) {
-                maxLoudness = song.getLoudness();
+            if(song.getEnergy() > maxEnergy) {
+                maxEnergy = song.getEnergy();
             }
         }
-        return maxLoudness;
+        return maxEnergy;
     }
 
-    public double findSumLoudness(ArrayList<Song> songs) {
-        double sumLoudness = 0.0;
+    public double findSumEnergy(ArrayList<Song> songs) {
+        double sumEnergy = 0.0;
         for(Song song : songs) {
-            sumLoudness += song.getLoudness();
+            sumEnergy += song.getEnergy();
         }
-        return sumLoudness;
+        return sumEnergy;
     }
 
-    public double findAveLoudness(ArrayList<Song> songs) {
-        return findSumLoudness(songs) / songs.size();
+    public double findAveEnergy(ArrayList<Song> songs) {
+        if (songs.isEmpty()) {
+            return 0.0;
+        }
+        return findSumEnergy(songs) / songs.size();
+    }
+
+    public String findMinEnergyTrack(ArrayList<Song> songs) {
+        String minEnergyTrack = "";
+        double minEnergy = 0.0;
+        for(Song song : songs) {
+            if(song.getEnergy() < minEnergy) {
+                minEnergy = song.getEnergy();
+                minEnergyTrack = song.getTrack_name();
+            }
+        }
+        return minEnergyTrack;
+    }
+
+    public String findMaxEnergyTrack(ArrayList<Song> songs) {
+        String maxEnergyTrack = "";
+        double maxEnergy = 0.0;
+        for(Song song : songs) {
+            if(song.getEnergy() > maxEnergy) {
+                maxEnergy = song.getEnergy();
+                maxEnergyTrack = song.getTrack_name();
+            }
+        }
+        return maxEnergyTrack;
     }
 
     public String statsToJson(ArrayList<Song> songs) {
-        double minLoudness = findMinLoudness(songs);
-        double maxLoudness = findMaxLoudness(songs);
-        double aveLoudness = findAveLoudness(songs);
-        double sumLoudness = findSumLoudness(songs);
+        double min = findMinEnergy(songs);
+        double max = findMaxEnergy(songs);
+        double ave = findAveEnergy(songs);
+        double sum = findSumEnergy(songs);
+        String minTrack = findMinEnergyTrack(songs);
+        String maxTrack = findMaxEnergyTrack(songs);
 
         return String.format(
-                "{\"count\":%d,\"min\":%.1f,\"max\":%.1f,\"avg\":%.1f,\"sum\":%.1f,\"range\":%.1f}",
-                songs.size(), minLoudness, maxLoudness, aveLoudness, sumLoudness, (maxLoudness - minLoudness)
+                "{\"count\":%d,\"min\":%.1f,\"max\":%.1f,\"avg\":%.1f,\"sum\":%.1f,\"range\":%.1f,\"minTrack\":\"%s\",\"maxTrack\":\"%s\"}",
+                songs.size(), min, max, ave, sum, (max - min), minTrack, maxTrack
         );
     }
     
+    public String toJson(ArrayList<Song> songs) {
+        StringBuilder json = new StringBuilder("[");
+        for(int i = 0; i < songs.size(); i++) {
+            json.append(songs.get(i).toJson());
+            if(i < songs.size() - 1) {
+                json.append(",");
+            }
+        }
+        json.append("]");
+        return json.toString();
+    }
 
     public static void main(String[] args) {
         ArrayList<String> songlist = FileOperator.getStringList("dataset.csv");

@@ -41,21 +41,28 @@ public class Server {
 
         // Serve ArrayList as JSON
         server.createContext("/data", exchange -> {
-            // Add CORS header so browser fetch() works
-            exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            try {
+                exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
 
-            // Manually convert ArrayList to JSON array string (no library!)
-            DataAnalyzer analyzer = new DataAnalyzer();
-            ArrayList<Song> songs = analyzer.createSongs(FileOperator.getStringList("dataset.csv"));
-            String json = songs.toString();
+                DataAnalyzer analyzer = new DataAnalyzer();
+                ArrayList<Song> songs =
+                    analyzer.createSongs(FileOperator.getStringList("dataset.csv", 7));
 
-            byte[] response = json.getBytes();
-            exchange.sendResponseHeaders(200, response.length);
-            exchange.getResponseBody().write(response);
-            exchange.getResponseBody().close();
+                String json = analyzer.toJson(songs);
 
+                byte[] response = json.getBytes();
+                exchange.sendResponseHeaders(200, response.length);
+                exchange.getResponseBody().write(response);
+                exchange.getResponseBody().close();
 
+                System.out.println("Data endpoint hit successfully.");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                exchange.sendResponseHeaders(500, 0);
+                exchange.getResponseBody().close();
+            }
         });
         
         server.createContext("/stats", exchange -> {
