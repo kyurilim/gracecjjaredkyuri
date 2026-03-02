@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-
 public class DataAnalyzer{
     
+    //creates a list of songs from a file
     public ArrayList<Song> createSongs(ArrayList<String> songData) {
         ArrayList<Song> songs = new ArrayList<>();
         for(int i = 1; i < songData.size(); i++) {
@@ -35,6 +35,7 @@ public class DataAnalyzer{
         return songs;
     }
 
+    //counts the numebr of explicit songs in the list
     public int countExplicitSongs(ArrayList<Song> songs) {
         int count = 0;
         for(Song song : songs) {
@@ -45,6 +46,7 @@ public class DataAnalyzer{
         return count;
     }
 
+    //find the average loudness value of songs in the list
     public double averageLoudness(ArrayList<Song> songs) {
         double totalLoudness = 0;
         for(Song song : songs) {
@@ -53,6 +55,7 @@ public class DataAnalyzer{
         return totalLoudness / songs.size();
     }
 
+    //sorts the songs in the list by a specified attribute
     public ArrayList<Song> sortSongs(ArrayList<Song> songs, String attribute) {
         songs.sort((s1, s2) -> {
             switch (attribute.toLowerCase()) {
@@ -71,6 +74,7 @@ public class DataAnalyzer{
         return songs;
     }
 
+    //finds the index of a target number in a list of doubles using binary search
     public int binarySearch(ArrayList<Integer> songs, double targetNumber) {
         int minIndex = 1;
         int maxIndex = songs.size();
@@ -89,6 +93,7 @@ public class DataAnalyzer{
         return -1;
     }
 
+    //iterates through a list of songs to find the index of a target track name
     public int linearSearch(ArrayList<Song> songs, String targetTrackName){
         int index = 0;
         while(index < songs.size()){
@@ -100,6 +105,7 @@ public class DataAnalyzer{
         return -1;
     }
 
+    //reverses list order
     public ArrayList<Song> reverseList(ArrayList<Song> songs) {
         ArrayList<Song> reversed = new ArrayList<>();
         for(int i = songs.size() - 1; i >= 0; i--) {
@@ -108,6 +114,7 @@ public class DataAnalyzer{
         return reversed;
     }
 
+    //creates a list of songs with only the track id and energy attributes
     public ArrayList<Song> energyList(ArrayList<Song> songs) {
         ArrayList<Song> energySongs = new ArrayList<>();
         for(Song song : songs) {
@@ -116,6 +123,7 @@ public class DataAnalyzer{
         return energySongs;
     }
 
+    //finds the lowest energy value in the list of songs
     public double findMinEnergy(ArrayList<Song> songs) {
         double minEnergy = 0.0;
         for(Song song : songs) {
@@ -126,6 +134,7 @@ public class DataAnalyzer{
         return minEnergy;
     }
 
+    //finds the highest energy value in the list of songs
     public double findMaxEnergy(ArrayList<Song> songs) {
         double maxEnergy = 0.0;
         for(Song song : songs) {
@@ -136,6 +145,7 @@ public class DataAnalyzer{
         return maxEnergy;
     }
 
+    //calculates the sum of energy values in the list of songs
     public double findSumEnergy(ArrayList<Song> songs) {
         double sumEnergy = 0.0;
         for(Song song : songs) {
@@ -144,13 +154,15 @@ public class DataAnalyzer{
         return sumEnergy;
     }
 
+    //calculates the average energy value in the list of songs
     public double findAveEnergy(ArrayList<Song> songs) {
         if (songs.isEmpty()) {
             return 0.0;
         }
-        return findSumEnergy(songs) / songs.size();
+        return Math.round(findSumEnergy(songs) / songs.size() * 100.0) / 100.0;
     }
 
+    //gives the track name of the song with the lowest energy value
     public String findMinEnergyTrack(ArrayList<Song> songs) {
         String minEnergyTrack = "";
         double minEnergy = 0.0;
@@ -163,6 +175,7 @@ public class DataAnalyzer{
         return minEnergyTrack;
     }
 
+    //gives the track name of the song with the highest energy value
     public String findMaxEnergyTrack(ArrayList<Song> songs) {
         String maxEnergyTrack = "";
         double maxEnergy = 0.0;
@@ -175,6 +188,7 @@ public class DataAnalyzer{
         return maxEnergyTrack;
     }
 
+    //creates a JSON string of the statistics of the energy values in the list of songs
     public String statsToJson(ArrayList<Song> songs) {
         double min = findMinEnergy(songs);
         double max = findMaxEnergy(songs);
@@ -189,6 +203,7 @@ public class DataAnalyzer{
         );
     }
     
+    //creates a JSON string of the list of songs
     public String toJson(ArrayList<Song> songs) {
         StringBuilder json = new StringBuilder("[");
         for(int i = 0; i < songs.size(); i++) {
@@ -210,9 +225,9 @@ public class DataAnalyzer{
         // ArrayList<Song> sortedSongs = analyzer.sortSongsByLoudness(songs);
         System.out.println("Number of explicit songs: " + explicitCount);
         System.out.println("Average loudness: " + averageLoudness);
-        // System.out.println("Sorted songs by loudness:");
+        System.out.println("Sorted songs by loudness:");
         // for(Song song : sortedSongs) {
-        //     System.out.println(song.getTrack_name() + " - Loudness: " + song.getLoudness());
+            // System.out.println(song.getTrack_name() + " - Loudness: " + song.getLoudness());
         // }
         ArrayList<Integer> numberList = FileOperator.getIntList("numbers.txt");
         long startTime = System.nanoTime();

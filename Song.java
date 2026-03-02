@@ -27,6 +27,7 @@ public class Song{
         this.genre = "";
     }
 
+    //constructor for energy list
     public Song(String track_id, double energy) {
         this.track_id = track_id;
         this.energy = energy;
@@ -115,6 +116,68 @@ public class Song{
     public String getGenre() {
         return genre;
     }
+
+    public void setTrack_id(String track_id) {
+        this.track_id = track_id;
+    }
+    public void setArtists(String artists) {
+        this.artists = artists;
+    }
+    public void setAlbum_name(String album_name) {
+        this.album_name = album_name;
+    }
+    public void setTrack_name(String track_name) {
+        this.track_name = track_name;
+    }
+    public void setPopularity(int popularity) {
+        this.popularity = popularity;
+    }
+    public void setDuration_ms(int duration_ms) {
+        this.duration_ms = duration_ms;
+    }
+    public void setExplicit(boolean explicit) {
+        this.explicit = explicit;
+    }
+    public void setDanceability(double danceability) {
+        this.danceability = danceability;
+    }
+    public void setEnergy(double energy) {
+        this.energy = energy;
+    }
+    public void setKey(String key) {
+        this.key = key;
+    }
+    public void setLoudness(double loudness) {
+        this.loudness = loudness;
+    }
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+    public void setSpeechiness(double speechiness) {
+        this.speechiness = speechiness;
+    }
+    public void setAcousticness(double acousticness) {
+        this.acousticness = acousticness;
+    }
+    public void setInstrumentalness(double instrumentalness) {
+        this.instrumentalness = instrumentalness;
+    }
+    public void setLiveness(double liveness) {
+        this.liveness = liveness;
+    }
+    public void setValence(double valence) {
+        this.valence = valence;
+    }
+    public void setTempo(double tempo) {
+        this.tempo = tempo;
+    }
+    public void setTime_signature(int time_signature) {
+        this.time_signature = time_signature;
+    }
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+    
 
     public String toString() {
         return "Track ID: " + track_id + "\nArtists: " + artists + "\nAlbum Name: " + album_name + "\nTrack Name: " + track_name + "\nPopularity: " + popularity + "\nDuration (ms): " + duration_ms + "\nExplicit: " + explicit + "\nDanceability: " + danceability + "\nEnergy: " + energy + "\nKey: " + key + "\nLoudness: " + loudness + "\nMode: " + mode + "\nSpeechiness: " + speechiness + "\nAcousticness: " + acousticness + "\nInstrumentalness: " + instrumentalness + "\nLiveness: " + liveness + "\nValence: " + valence + "\nTempo: " + tempo + "\nTime Signature: " + time_signature + "\nGenre: " + genre;
