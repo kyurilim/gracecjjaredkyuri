@@ -1,16 +1,16 @@
 import java.util.*;
 import java.io.*;
 
-public class DataAnalyzer {
+public class Popularity {
 
     private ArrayList<Map<String, Object>> songs = new ArrayList<>();
 
-    public DataAnalyzer(String fileName) {
+    public Popularity(String fileName) {
         ArrayList<String> lines = FileOperator.getStringList(fileName);
-        createSongs(lines);
+        loadSongs(lines);
     }
 
-    private void createSongs(ArrayList<String> songData) {
+    private void loadSongs(ArrayList<String> songData) {
         if (songData == null || songData.size() <= 1) return;
 
         for (int i = 1; i < songData.size(); i++) {
@@ -44,7 +44,9 @@ public class DataAnalyzer {
                 song.put("genre", stripQuotes(fields[20]));
 
                 songs.add(song);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                // skip malformed rows
+            }
         }
     }
 
@@ -63,6 +65,18 @@ public class DataAnalyzer {
         for (Map<String, Object> s : songs) {
             if ((int) s.get("popularity") > (int) best.get("popularity")) {
                 best = s;
+            }
+        }
+        return best;
+    }
+
+    public Map<String, Object> mostPopularSongInGenre(String genre) {
+        Map<String, Object> best = null;
+        for (Map<String, Object> s : songs) {
+            if (s.get("genre").toString().equalsIgnoreCase(genre.trim())) {
+                if (best == null || (int) s.get("popularity") > (int) best.get("popularity")) {
+                    best = s;
+                }
             }
         }
         return best;
@@ -121,25 +135,7 @@ public class DataAnalyzer {
         return avgMap;
     }
 
-    public static void main(String[] args) {
-        DataAnalyzer analyzer = new DataAnalyzer("dataset.csv");
-
-        Map<String, Object> best = analyzer.mostPopularSong();
-        if (best != null) {
-            System.out.println("Most Popular: " + best.get("track_name") + " by " + best.get("artists") +
-                    " | Popularity: " + best.get("popularity"));
-        }
-
-        ArrayList<Map<String, Object>> top5 = analyzer.topNSongs(5);
-        for (int i = 0; i < top5.size(); i++) {
-            Map<String, Object> s = top5.get(i);
-            System.out.println((i + 1) + ") " + s.get("track_name") + " | " +
-                    s.get("artists") + " | Popularity: " + s.get("popularity"));
-        }
-
-        Map<String, Double> stats = analyzer.getAveragePopularityPerGenre();
-        for (String genre : stats.keySet()) {
-            System.out.println(genre + ": " + stats.get(genre));
-        }
+    public ArrayList<Map<String, Object>> getAllSongs() {
+        return songs;
     }
 }
