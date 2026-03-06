@@ -37,9 +37,9 @@ public class Server {
         System.out.println("Running at http://localhost:8080");
 
         
-        server.createContext("/", res -> serveFile(res, "src/index.html", "text/html"));
-        server.createContext("/style.css", res -> serveFile(res, "src/style.css", "text/css"));
-        server.createContext("/code.js", res -> serveFile(res, "src/code.js", "application/javascript"));
+        server.createContext("/", res -> serveFile(res, "index.html", "text/html"));
+        server.createContext("/style.css", res -> serveFile(res, "style.css", "text/css"));
+        server.createContext("/code.js", res -> serveFile(res, "code.js", "application/javascript"));
 
         
         server.createContext("/data", exchange -> {
