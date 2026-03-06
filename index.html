@@ -1,0 +1,42 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Java Data Graph</title>
+    <link rel="stylesheet" href="style.css" onerror="document.body.innerHTML='<pre style=color:blue;padding:20px> ❌ ERROR: style.css not found. Make sure style.css is in the same folder as index.html.</pre>' + document.body.innerHTML"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+
+</head>
+<body>
+<header>
+    <h1>Java Data Graph</h1>
+    <p>ArrayList&lt;Integer&gt; &rarr; Live Visualization</p>
+</header>
+
+<main>
+
+    <div class="card">
+        <p class="chart-title">&#9616; Bar Chart</p>
+        <div id="barChart" class="status">Fetching from Java server...</div>
+    </div>
+
+    <div class="card" id="lineCard" style="display:none">
+        <p class="chart-title">&#9616; Line Chart</p>
+        <svg id="lineChart" viewBox="0 0 760 200" preserveAspectRatio="none" height="200"></svg>
+    </div>
+
+    <div id="statsRow" style="display:none">
+        <div class="stats" id="stats"></div>
+    </div>
+
+    <div class="btn-row">
+        <button class="btn" onclick="loadData()">&#8634; Refresh Data</button>
+    </div>
+    <script src="code.js"  onerror="document.body.innerHTML='<pre style=color:red;padding:20px>❌ ERROR: code.js not found. Make sure code.js is in the same folder as index.html.</pre>' + document.body.innerHTML"></script>
+</main>
+</body>
+</html>
