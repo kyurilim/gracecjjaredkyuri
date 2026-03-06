@@ -47,7 +47,7 @@ public class Server {
 
                 DataAnalyzer analyzer = new DataAnalyzer();
                 ArrayList<Song> songs =
-                    analyzer.createSongs(FileOperator.getStringList("dataset.csv", 7));
+                    analyzer.createSongsCJ(FileOperator.getStringList("dataset.csv", 7));
 
                 String json = analyzer.toJson(songs);
 
@@ -68,7 +68,7 @@ public class Server {
         server.createContext("/stats", exchange -> {
             exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
             exchange.getResponseHeaders().set("Content-Type", "application/json");
-            ArrayList<Song> songs = new DataAnalyzer().createSongs(FileOperator.getStringList("dataset.csv"));
+            ArrayList<Song> songs = new DataAnalyzer().createSongsCJ(FileOperator.getStringList("dataset.csv"));
             String json = new DataAnalyzer().statsToJson(songs);
             byte[] response = json.getBytes();
             exchange.sendResponseHeaders(200, response.length);
