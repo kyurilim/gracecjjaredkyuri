@@ -174,10 +174,10 @@ public class Song{
     
 
     public String toString() {
-        return "Track ID: " + track_id + "\nArtists: " + artists + "\nAlbum Name: " + album_name + "\nTrack Name: " + track_name + "\nPopularity: " + popularity + "\nDuration (ms): " + duration_ms + "\nExplicit: " + explicit + "\nDanceability: " + danceability + "\nEnergy: " + energy + "\nKey: " + key + "\nLoudness: " + loudness + "\nMode: " + mode + "\nSpeechiness: " + speechiness + "\nAcousticness: " + acousticness + "\nInstrumentalness: " + instrumentalness + "\nLiveness: " + liveness + "\nValence: " + valence + "\nTempo: " + tempo + "\nTime Signature: " + time_signature + "\nGenre: " + genre;
+        return "{\"artists\":\"" + artists + "\",\"popularity\":" + popularity + "}";
     }
 
     public String toJson(){
-        return "{\"track_id\":\"" + track_id + "\",\"artists\":\"" + artists + "\",\"album_name\":\"" + album_name + "\",\"track_name\":\"" + track_name + "\",\"popularity\":" + popularity + ",\"duration_ms\":" + duration_ms + ",\"explicit\":" + explicit + ",\"danceability\":" + danceability + ",\"energy\":" + energy + ",\"key\":\"" + key + "\",\"loudness\":" + loudness + ",\"mode\":" + mode + ",\"speechiness\":" + speechiness + ",\"acousticness\":" + acousticness + ",\"instrumentalness\":" + instrumentalness + ",\"liveness\":" + liveness + ",\"valence\":" + valence + ",\"tempo\":" + tempo + ",\"time_signature\":" + time_signature + ",\"genre\":\"" + genre +"\"}";
+        return "{\"name\":\"" + artists + "\", \"value\":\"" + instrumentalness +"\"}";
     }
 }

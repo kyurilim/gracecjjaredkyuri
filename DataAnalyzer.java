@@ -16,19 +16,19 @@ public class DataAnalyzer{
             int duration_ms = Integer.parseInt(fields[6]);
             boolean explicit = Boolean.parseBoolean(fields[7]);
             double danceability = Double.parseDouble(fields[8]);
-            double instrumentalness = Double.parseDouble(fields[9]);
+            double instrumentalness = Double.parseDouble(fields[15]);
             String key = fields[10];
             double loudness = Double.parseDouble(fields[11]);
             int mode = Integer.parseInt(fields[12]);
             double speechiness = Double.parseDouble(fields[13]);
             double acousticness = Double.parseDouble(fields[14]);
-            double energy = Double.parseDouble(fields[15]);
+            double energy = Double.parseDouble(fields[9]);
             double liveness = Double.parseDouble(fields[16]);
             double valence = Double.parseDouble(fields[17]);
             double tempo = Double.parseDouble(fields[18]);
             int time_signature = Integer.parseInt(fields[19]);
             String genre = fields[20];
-            Song song = new Song(track_id, artists, album_name, track_name, popularity, duration_ms, explicit, danceability, instrumentalness, key, loudness, mode, speechiness, acousticness, energy, liveness, valence, tempo, time_signature, genre);
+            Song song = new Song(track_id, artists, album_name, track_name, popularity, duration_ms, explicit, danceability, energy, key, loudness, mode, speechiness, acousticness,instrumentalness,  liveness, valence, tempo, time_signature, genre);
             
             songs.add(song);
         }
@@ -125,6 +125,15 @@ public class DataAnalyzer{
             }
         }
         return maxInstrumentalnessTrack;
+    }
+    public String toJSon(ArrayList<Song> songs){
+        String json = "[";
+          for(Song song : songs) {  
+            json += song.toJson() + ",";
+          }
+            json = json.substring(0, json.length() - 1); // Remove trailing comma
+            json += "]";
+            return json;
     }
 
     //MIN
