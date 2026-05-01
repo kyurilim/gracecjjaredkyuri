@@ -1,53 +1,73 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
-/**
- * FileOperator - Utility class for reading and processing data files.
- * Provides helper methods to load data from CSV and text files.
- */
 public class FileOperator {
-    
-    /**
-     * Reads a CSV file and returns lines as a list of strings.
-     * Each line represents a row of data.
-     * 
-     * @param filename The path to the CSV file to read
-     * @return A list of strings, each representing one line from the file
-     */
-    public static List<String> readCSVFile(String filename) {
-        List<String> lines = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
-        }
-        return lines;
-    }
-    
-    /**
-     * Parses a CSV line into individual data fields separated by commas.
-     * Handles basic CSV format parsing.
-     * 
-     * @param csvLine A single line of CSV data
-     * @return An array of strings representing each field in the CSV line
-     */
-    public static String[] parseCSVLine(String csvLine) {
-        return csvLine.split(",");
-    }
-    
-    /**
-     * Reads all lines from a text file and returns them as a list.
-     * 
-     * @param filename The path to the text file
-     * @return A list of strings, each representing one line
-     */
-    public static List<String> readTextFile(String filename) {
-        return readCSVFile(filename);
-    }
+   private static File myFile;
+   private static Scanner fileReader;
+
+   public FileOperator() {
+   }
+
+   public static void createFile(String var0) {
+      myFile = new File(var0);
+
+      try {
+         fileReader = new Scanner(myFile);
+      } catch (FileNotFoundException var2) {
+         var2.printStackTrace();
+         System.out.println("File not found. Please enter a valid file.");
+      }
+
+   }
+
+   public static ArrayList<String> getStringList(String var0, int numLines) {
+      createFile(var0);
+      ArrayList<String> var1 = new ArrayList<>();
+      int count = 0;
+
+      while (fileReader.hasNextLine() && (numLines <= 0 || count < numLines)) {
+         var1.add(fileReader.nextLine());
+         count++;
+      }
+
+      return var1;
+   }
+
+   public static ArrayList<Double> getDoubleList(String var0) {
+      createFile(var0);
+      ArrayList var1 = new ArrayList();
+
+      while(fileReader.hasNextDouble()) {
+         var1.add(fileReader.nextDouble());
+      }
+
+      return var1;
+   }
+
+   public static ArrayList<Integer> getIntList(String var0) {
+      createFile(var0);
+      ArrayList var1 = new ArrayList();
+
+      while(fileReader.hasNextInt()) {
+         var1.add(fileReader.nextInt());
+      }
+
+      return var1;
+   }
+
+   public static ArrayList<String> getWords(String var0) {
+      ArrayList var1 = new ArrayList();
+      String[] var2 = var0.split(" ");
+      String[] var3 = var2;
+      int var4 = var2.length;
+
+      for(int var5 = 0; var5 < var4; ++var5) {
+         String var6 = var3[var5];
+         var1.add(var6);
+      }
+
+      return var1;
+   }
 }
